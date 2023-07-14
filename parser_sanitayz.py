@@ -15,16 +15,20 @@ def parser(user_input: str) -> list:
     user_list.insert(0,command.lower()) #только команду в нижний регистр 
     return user_list
 
-def sanitaze_phone(phone: str) -> str :
+def sanitaze_phone_decorator(func):
     """
-    очишает строку с номером телефона оставляя только цифри
+    декоратора возвращает ваолидний очищений номер
+    или False
     """
-    digits = re.sub(r'\D', '', phone)
-    return digits
+    def wraper(phone: str):
+        digits = "".join(filter(str.isdigit, phone))
+        if len(digits) > 10 :
+            return func(digits)
+        else:
+            return False
+    return wraper  
 
-def is_valid_phone(phone: str) -> bool :
-    """
-    проверка валидности номера
-    только цифри длина 
-    """
-    pass
+
+@sanitaze_phone_decorator
+def sanitaze_phone(phone):
+    return phone   

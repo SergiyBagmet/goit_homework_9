@@ -1,11 +1,15 @@
 
 phone_book = {}
 
-def hello(*_):
+def hello(*_) -> str:
+    """
+    при визове(команда "hello") 
+    возвращает фиксированую строку
+    """
     bot_message = "How can I help you?"
     return bot_message
 
-def add_name_phone(name, phone, *_) :
+def add_name_phone(name: str, phone: str, *_) -> str :
     """
     заполняет телефоную книгу (словарь) 
     {"name" : "phone",}
@@ -20,7 +24,7 @@ if you whant change namber, writhe : 'change name new_phone'"
     return bot_message
        
     
-def change_phone(name, new_phone,*_):
+def change_phone(name: str, new_phone: str, *_) -> str:
     """
     меняем номер телефона по имени
     возвращаем строку о работе функции
@@ -31,8 +35,7 @@ def change_phone(name, new_phone,*_):
         bot_message = f"successful changed contact : '{name}' \n\
 {back_phone} -to-> {new_phone}"
     else:
-        bot_message = f"this contact : '{name}' -  isn't in phone book"
-    print(phone_book)    
+        bot_message = f"this contact : '{name}' -  isn't in phone book"    
     return bot_message
 
 BOT_COMMANDS = {

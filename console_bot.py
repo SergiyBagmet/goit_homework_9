@@ -13,7 +13,7 @@ def main():
 
         do_command = BOT_COMMANDS[command]
         bot_message = do_command(*user_info)
-        print(bot_message)
+        print(bot_message+"\n")
   
 
 
