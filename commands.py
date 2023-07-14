@@ -1,6 +1,7 @@
 
 phone_book = {}
 
+
 def hello(*_) -> str:
     """
     при визове(команда "hello") 
