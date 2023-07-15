@@ -21,20 +21,17 @@ def parser(user_input: str) -> list:
     user_list.insert(0,command.lower()) #только команду в нижний регистр 
     return user_list
 
-def sanitaze_phone_decorator(func):
+
+def valid_phone(func):
     """
     декоратора возвращает ваолидний очищений номер
     или False
     """
-    def wraper(phone: str):
+    def wraper(*args):
+        name, phone, *_ = args 
         digits = "".join(filter(str.isdigit, phone))
         if len(digits) > 10 :
-            return func(digits)
+            return func(name, digits,*_)
         else:
-            return False
+            return f"{phone} this isn't corect nomber"
     return wraper  
-
-
-@sanitaze_phone_decorator
-def sanitaze_phone(phone):
-    return phone   

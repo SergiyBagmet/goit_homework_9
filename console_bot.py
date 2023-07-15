@@ -10,10 +10,11 @@ def main():
         if command in BOT_EXIT:
             print("Good bye!")
             break
-        try:    
-            do_command = BOT_COMMANDS[command]
+           
+        do_command = BOT_COMMANDS.get(command)
+        if do_command:
             bot_message = do_command(*user_info)
-        except KeyError:
+        else:
             bot_message = "Unknown command !!!"
 
         print(bot_message+"\n")   
