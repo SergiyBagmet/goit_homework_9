@@ -10,10 +10,13 @@ def input_error(func):
     def wrapper(*args):
         try:
             return func(*args)
-        except (TypeError, KeyError, IndexError) as err:
+        except KeyError as err:
             return str(err)
+        except (ValueError,TypeError) :
+            return f"for this command should be more data"
     return wrapper    
 
+# не вижу смысла вешать @input_error
 def hello(*_) -> str:
     """
     при визове(команда "hello") 
@@ -35,7 +38,7 @@ def add_name_phone(name: str, phone: str, *_) -> str :
         return f"Contact '{name}' with phone '{phone}' has been added."
     
     else: # если имя уже есть  -  сообщение 
-        raise KeyError( f"this name '{name}' is also in phone book\
+        raise KeyError( f"this name '{name}' is also in phone book \
 if you whant change namber, writhe : 'change name new_phone'")
    
 @valid_phone       
@@ -53,8 +56,30 @@ def change_phone(name: str, new_phone: str, *_) -> str:
         raise KeyError(f"this contact : '{name}' -  isn't in phone book")    
 
 @input_error   
-def get_phone() :
-    pass
+def get_phone(name: str, *_) ->str :
+    """
+    получаем номер по имени и возвращаем строку
+    если нет записи ерор ловит декоратор 
+    """
+    phone = phone_book.get(name)
+    if phone:
+        return f"The phone number for contact '{name}' is  {phone}."
+    else:
+        raise KeyError(f"this contact : '{name}' -  isn't in phone book")
+     
+@input_error
+def show_contacts(*_) -> str :
+    """
+    
+    """
+    if phone_book:
+        contacts = "Contacts:\n\n"
+        contacts += "{:^15} {:^15}\n".format("name","phone")
+        for name, phone in sorted(phone_book.items()):
+            contacts += "{:<15} {:<15}\n".format(name, phone)
+        return contacts
+    else:
+        raise KeyError ("No contacts found.")
 
 BOT_COMMANDS = {
     "hello": hello,
@@ -62,7 +87,7 @@ BOT_COMMANDS = {
     "add": add_name_phone,
     "change": change_phone,
     "phone": get_phone,
-    # TODO"show all": show_all_contacts,
+    "show all": show_contacts,
 }
 
 BOT_EXIT = ["good bye", "close", "exit"]

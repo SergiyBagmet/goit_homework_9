@@ -28,10 +28,13 @@ def valid_phone(func):
     или False
     """
     def wraper(*args):
-        name, phone, *_ = args 
+        try:
+            name, phone, *_ = args 
+        except (ValueError ,TypeError):
+            return f"for this command should be more data"        
         digits = "".join(filter(str.isdigit, phone))
         if len(digits) > 10 :
             return func(name, digits,*_)
         else:
-            return f"{phone} this isn't corect nomber"
+            return f"'{phone}' -  this isn't corect nomber"
     return wraper  
