@@ -4,18 +4,18 @@ from parser_sanitayz import *
 
 def main(): 
     while True:
-        user_input = input("Enter command: ")
-        command, *user_info = parser(user_input)
+        user_input = input(">>>")
+        command, *user_info = parser(user_input) #  команда + запаковка ост строка(списком) если она есть 
 
-        if command in BOT_EXIT:
+        if command in BOT_EXIT: # условие на виход TODO а можно било написать отдельной функцией?
             print("Good bye!")
             break
            
-        do_command = BOT_COMMANDS.get(command)
+        do_command = BOT_COMMANDS.get(command) # получем функию по команде
         if do_command:
-            bot_message = do_command(*user_info)
+            bot_message = do_command(*user_info) # передаем запаковний список инпута если он есть 
         else:
-            bot_message = "Unknown command !!!"
+            bot_message = "Unknown command!!! write 'help' to get info commands"
 
         print(bot_message+"\n")   
         
