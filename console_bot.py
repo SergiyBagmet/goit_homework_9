@@ -1,6 +1,4 @@
-from commands import BOT_COMMANDS, BOT_EXIT
-from parser_sanitayz import *
-
+from my_package import BOT_COMMANDS, BOT_EXIT, parser
 
 def main(): 
     while True:

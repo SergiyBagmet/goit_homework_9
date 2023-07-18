@@ -1,5 +1,5 @@
 import re
-from console_bot import BOT_COMMANDS, BOT_EXIT
+from my_package import BOT_COMMANDS, BOT_EXIT
 def parser(user_input: str) -> list:
     """
     парсинг строки 
